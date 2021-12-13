@@ -20,37 +20,40 @@ ActiveStorage.start()
 
 // External imports
 import "bootstrap";
-
-// Internal imports, e.g:
-// import { initSelect2 } from '../components/init_select2';
-
-document.addEventListener('turbolinks:load', () => {
-  // Call your functions here, e.g:
-  // initSelect2();
-});
-
+import "controllers"
 
 import { initMapbox } from '../plugins/init_mapbox';
 import { initMapboxShow } from '../plugins/init_mapbox_show';
+import { modalOpen } from "../plugins/modal_open";
+import { readMore } from "../plugins/read_more";
+import { initSweetalert } from '../plugins/init_sweetalert';
+
+// import { initAutocomplete } from '../plugins/init_autocomplete';
 
 document.addEventListener('turbolinks:load', () => {
-  initMapbox();
-  initMapboxShow();
+  if (document.querySelector(".restaurants-index")) {
+    initMapbox();
+  };
+  if (document.querySelector(".restaurants-show")) {
+    initMapboxShow();
+  }
+  modalOpen();
+  readMore();
+  // initAutocomplete();
+  initSweetalert('#sweet-alert-demo', {
+    title: "Added to collection",
+    text: "Add more restaurants anytime!",
+    icon: "success"
+  });
 })
 
-$(document).ready(function () {
 
-  $('.first-button').on('click', function () {
+// $(".crossRotate").click(function () {
+//   if ($(this).css("transform") == 'none') {
+//     $(this).css("transform", "rotate(45deg)");
+//   } else {
+//     $(this).css("transform", "");
+//   }
+// });
 
-    $('.animated-icon1').toggleClass('open');
-  });
-  $('.second-button').on('click', function () {
-
-    $('.animated-icon2').toggleClass('open');
-  });
-  $('.third-button').on('click', function () {
-
-    $('.animated-icon3').toggleClass('open');
-  });
-});
-
+  // sweetalert js. call

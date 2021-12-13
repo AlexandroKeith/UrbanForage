@@ -3,7 +3,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
+gem 'acts_as_favoritor'
+gem 'pundit'
+gem 'turbolinks_render'
 gem 'devise'
+gem 'pagy', '~> 5.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 # Use postgresql as the database for Active Record
@@ -65,7 +69,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Cloudinary
-gem 'dotenv-rails', groups: [:development, :test]
 gem 'cloudinary', '~> 1.16.0'
 
 #Geocoding
@@ -73,6 +76,9 @@ gem 'geocoder'
 
 # Search API
 gem 'google_search_results'
+
+gem 'pg_search', '~> 2.3.0'
+gem "algoliasearch-rails"
 
 # Faker
 gem 'faker'

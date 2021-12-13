@@ -1,0 +1,87 @@
+<div class="container my-4">
+  <div class="collection-index-top d-flex justify-content-between align-items-start my-5">
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-lg-6 col-sm-12">
+    <h2 class="mb-3"> Your collections </h2>
+      <div class="collection-cards">
+
+      <% @user_collections.each do |collection| %>
+        <div class="collection-card p-3" id="collection-card">
+          <%= link_to collection_path(collection) do %>
+          <div class="collection-info d-flex justify-content-between">
+            <div class="collection-title">
+              <h2> <%= collection.name %> </h2>
+              <p> <%= collection.description %> </p>
+            </div>
+            <div class="collection-image-div">
+              <%# <%= cl_image_tag 'earthy-vibe.jpg', class:'collection-image'%>
+              <% if current_user.photo.key.nil? %>
+                <div class="collection-image-div" id="<%= ['yellow','red','blue'].sample %>-background">
+                </div>
+              <% else %>
+              <%= cl_image_tag current_user.photo.key, height: 50, width: 50, crop: :fill, class: "collection-image-div"%>
+              <% end %>
+            </div>
+          </div>
+          <% end %>
+        </div>
+      <% end %>
+      <%= link_to 'Create collection', new_collection_path, class:'btn btn-primary my-3' %>
+      </div>
+    </div>
+
+  <div class="friends-collection col-lg-6 col-sm-12">
+
+      <h2> Your saved collections </h2>
+      <div class="collection-cards">
+        <% @favorites.each do |favorite| %>
+        <div class="collection-card p-3" id="collection-card">
+          <%= link_to collection_path(Collection.find(favorite.favoritable_id)) do %>
+          <div class="collection-info d-flex justify-content-between">
+            <div class="collection-title">
+              <h3> <%= favorite.favoritable.name %> </h3>
+              <p class="collection-card-description"> <%= favorite.favoritable.description %> </p>
+              <p class="user-name"><%= favorite.favoritable.user.first_name %> <%= favorite.favoritable.user.last_name %> </p>
+              </div>
+                <% if favorite.favoritable.user.photo.key.nil? %>
+                    <th scope="row"> <%= image_tag "unisex-avatar2.jpg", height: 50, width: 50, crop: :fill, class: "collection-image-div"%> </th>
+                  <% else %>
+                    <th scope="row"><%= cl_image_tag favorite.favoritable.user.photo.key, height: 50, width: 50, crop: :fill, class: "collection-image-div"%></th>
+                  <% end %>
+            </div>
+            <% end %>
+          </div>
+    <% end %>
+  </div>
+  </div>
+  </div>
+
+  <h1 class="mt-5"> Public collections </h1>
+  <div class="all-collections row">
+      <% @collections.each do |collection| %>
+        <div class="col-lg-4 col-sm-12">
+          <%= link_to collection_path(collection) do %>
+          <div class="other-collection my-3 p-4 d-flex justify-content-between" id="other-collection-card">
+                <div class="collection-top d-flex justify-content-between">
+                  <div class="collection-title w-50">
+                    <h3> <%= collection.name %> </h3>
+                    <p class="collection-card-description"> <%= collection.description %> </p>
+                  </div>
+                  <% if collection.user.photo.key.nil? %>
+                  <div class="collection-image-div" id="<%= ['yellow','red','blue'].sample %>-background">
+                  </div>
+                  <% else  %>
+                      <%= cl_image_tag collection.user.photo.key, height: 50, width: 50, crop: :fill, class: "collection-image-div"%>
+                  <% end %>
+                </div>
+                <p class="user-name">By <%= collection.user.first_name %> <%= collection.user.last_name %> </p>
+            </div>
+          <% end %>
+        </div>
+        <% end %>
+  </div>
+</div>
