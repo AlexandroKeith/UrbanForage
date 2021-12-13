@@ -10,10 +10,26 @@
   }
 }
 
-// .review-para {
-//   // max-height: 38px;
-//   // overflow: hidden;
-// }
+
+.review-para {
+  max-height: 40px;
+  overflow: hidden;
+}
+
+.less {
+  background-color: transparent;
+  border: none;
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.637);
+  &:hover {
+    text-decoration: underline;
+  }
+  font-size: 15px;
+}
+
+.hidden-btn {
+  display: none;
+}
 
 .pagination {
   margin-left: 20px

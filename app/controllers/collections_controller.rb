@@ -1,12 +1,13 @@
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: %i[show edit update destroy]
+  before_action :set_collection, only: %i[show edit update destroy favorite]
 
   def index
     @users = User.all
     @user = current_user
     @collections = Collection.where.not(user_id: current_user.id)
     @user_collections = Collection.where(user_id: current_user.id)
-    @friends_collections = Collection.where(user_id: current_user.friends)
+    # @friends_collections = Collection.where(user_id: current_user.friends)
+    @favorites = Favorite.where(favoritor_id: current_user.id)
     # @restaurant_collections = RestaurantCollection.all
   end
 
@@ -32,6 +33,12 @@ class CollectionsController < ApplicationController
   end
 
   def show
+    @collections = Collection.where.not(user_id: current_user.id)
+  end
+
+  def favorite
+    current_user.favorited?(@collection) ? current_user.unfavorite(@collection) : current_user.favorite(@collection)
+    redirect_to collection_path(@collection)
   end
 
   def edit

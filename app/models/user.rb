@@ -4,9 +4,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :collections
-
   has_many :invitations
   has_many :pending_invitations, -> { where confirmed: 'false' }, class_name: 'Invitation', foreign_key: "friend_id"
+  has_one_attached :photo
+  acts_as_favoritor
 
   def friends
     friends_i_sent_invitation = Invitation.where(user_id: id, confirmed: 'true').pluck(:friend_id)
