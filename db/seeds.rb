@@ -8,6 +8,8 @@ Photo.destroy_all
 Vibe.destroy_all
 Restaurant.destroy_all
 
+
+
 # SETTING UP SCENIC VIBE
 puts "-----"
 puts "Planting panoramic scenic restaurant seeds"
